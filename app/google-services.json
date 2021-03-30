@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "860676410929",
+    "project_id": "vit-spotlight",
+    "storage_bucket": "vit-spotlight.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860676410929:android:eaface395a214a782c0f10",
+        "android_client_info": {
+          "package_name": "com.example.vit_spotlight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860676410929-9c4uglqfm2n76elb20h0v56n0afhog5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD72frZA3n4ACXEMY_oamJ20Q2-41L8D00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860676410929-9c4uglqfm2n76elb20h0v56n0afhog5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

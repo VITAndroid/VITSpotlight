@@ -15,4 +15,6 @@ event and the club in charge can be tracked of it and provide OD and use it for 
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Resend of verify link and reset password option provided.
 </br>
 APK File Link:&nbsp;[Click Here](https://drive.google.com/file/d/10savZ_W-hAXKQvazIoZM294AyxsMpUv4/view?usp=sharing "APK File")
+</br>App ScreenShort:&nbsp;[Click Here](https://drive.google.com/drive/folders/1HDKYIR0RbYRZoUF2BEPYLGC8PyUNHoXi?usp=sharing "Screeenshort Images")
 </br></br><b>[Note]: Only for Vit Vellore campus can access the content as of now we try to develop it for all.</b>
+

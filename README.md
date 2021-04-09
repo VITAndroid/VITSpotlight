@@ -7,6 +7,8 @@ We are happy to announce our next product VITSpotlight android application. Our 
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Fill all the details and wait till “Account Created” toast with Verify alert(it take few seconds to create because of the image size).
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Verification link will be sent to the registered email id only after verifying the account user can access the content.
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Resend of verify link and reset password option provided.
+</br></br>
+Technology Used: IDE - Android Studio(Java), Database - Firebase
 </br>
 APK File Link:&nbsp;[Click Here](https://drive.google.com/file/d/10savZ_W-hAXKQvazIoZM294AyxsMpUv4/view?usp=sharing "APK File")
 </br>App ScreenShort:&nbsp;[Click Here](https://drive.google.com/drive/folders/1HDKYIR0RbYRZoUF2BEPYLGC8PyUNHoXi?usp=sharing "Screeenshort Images")

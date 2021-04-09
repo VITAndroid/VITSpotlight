@@ -2,6 +2,7 @@ package com.example.vit_spotlight;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,11 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -29,6 +35,7 @@ public class HomeFragment extends Fragment {
 
     RecyclerView post_list_view;
     private List<EventPost> post_list;
+    private List<User> user_list;
     FirebaseFirestore fStore;
     PostRecyclerAdapter postRecyclerAdapter;
 
@@ -78,27 +85,42 @@ public class HomeFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_home, container, false);
 
         post_list = new ArrayList<>();
+        user_list= new ArrayList<>();
         post_list_view=view.findViewById(R.id.post_list_view);
-        postRecyclerAdapter=new PostRecyclerAdapter(post_list);
+        postRecyclerAdapter=new PostRecyclerAdapter(post_list,user_list);
         post_list_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         post_list_view.setAdapter(postRecyclerAdapter);
 
         fStore=FirebaseFirestore.getInstance();
-        fStore.collection("Posts").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot documentSnapshots,@Nullable FirebaseFirestoreException e) {
-                if (documentSnapshots != null){
+
+        Query firstQuery= fStore.collection("Posts").orderBy("timestamp", Query.Direction.DESCENDING);
+        firstQuery.addSnapshotListener((documentSnapshots, e) -> {
+            if (documentSnapshots != null) {
                 for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
                     if (doc.getType() == DocumentChange.Type.ADDED) {
-                        EventPost eventPost = doc.getDocument().toObject(EventPost.class);
-                        post_list.add(eventPost);
-                        postRecyclerAdapter.notifyDataSetChanged();
+                        String PostId=doc.getDocument().getId();
+                        EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(PostId);
+
+                        String PostUserId=doc.getDocument().getString("user_id");
+                        fStore.collection("Users").document(PostUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    User user = task.getResult().toObject(User.class);
+                                    user_list.add(user);
+                                    post_list.add(eventPost);
+                                    postRecyclerAdapter.notifyDataSetChanged();
+                                }else{
+
+                                }
+                            }
+                        });
                     }
                 }
-            }
             }
         });
         // Inflate the layout for this fragment
         return view;
     }
+
 }

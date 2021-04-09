@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/likeBtnGray"
     tools:context=".NewPostActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -39,6 +40,8 @@
         android:ems="10"
         android:gravity="start|top"
         android:hint="Add Description"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

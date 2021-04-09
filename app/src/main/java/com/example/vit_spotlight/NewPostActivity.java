@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 
 import android.content.Intent;
 import android.net.Uri;
@@ -28,11 +31,14 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.lang.reflect.Field;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+
+import static com.example.vit_spotlight.Notification.CHANNEL1_ID;
+
 
 public class NewPostActivity extends AppCompatActivity {
     Toolbar mainToolbar;
@@ -44,10 +50,13 @@ public class NewPostActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
     String Current_Uid;
+    private NotificationManagerCompat notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+
+        notificationManager=NotificationManagerCompat.from(getApplicationContext());
 
         sRef= FirebaseStorage.getInstance().getReference();
         fStore=FirebaseFirestore.getInstance();
@@ -72,8 +81,19 @@ public class NewPostActivity extends AppCompatActivity {
         });
 
         newPostBtn.setOnClickListener(v -> {
-            String Desc=newPostDesc.getText().toString();
 
+            String title="New Post Added";
+            String msg="Check Out New Post Added";
+            android.app.Notification notification =new NotificationCompat.Builder(getApplicationContext(), CHANNEL1_ID)
+                    .setSmallIcon(R.drawable.icnotifications_active_24)
+                    .setContentTitle(title)
+                    .setContentText(msg)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_EVENT)
+                    .build();
+            notificationManager.notify(1, notification);
+
+            String Desc=newPostDesc.getText().toString();
             if(!TextUtils.isEmpty(Desc) && postImageUri!=null){
 
                 String randomName = UUID.randomUUID().toString();
@@ -106,6 +126,7 @@ public class NewPostActivity extends AppCompatActivity {
                                         Toast.makeText(NewPostActivity.this, "Post Added", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(getApplicationContext(),Club.class));
                                         finish();
+
                                     }else{
                                         String error = task.getException().getMessage();
                                         Toast.makeText(NewPostActivity.this, "FireStore Error : " + error, Toast.LENGTH_LONG).show();
@@ -127,6 +148,20 @@ public class NewPostActivity extends AppCompatActivity {
 
     }
 
+    public void sendchannel(View v) {
+            String title="New Post Added";
+            String msg="Check Out New Post Added";
+            android.app.Notification notification =new NotificationCompat.Builder(getApplicationContext(), CHANNEL1_ID)
+                    .setSmallIcon(R.drawable.icnotifications_active_24)
+                    .setContentTitle(title)
+                    .setContentText(msg)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_EVENT)
+                    .build();
+            notificationManager.notify(1, notification);
+            notificationManager.notifyAll();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -142,5 +177,7 @@ public class NewPostActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 }

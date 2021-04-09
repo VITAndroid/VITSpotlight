@@ -1,7 +1,6 @@
 package com.example.vit_spotlight;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -11,14 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,8 +20,7 @@ public class Club extends AppCompatActivity {
     Toolbar mainToolbar;
     BottomNavigationView clubbottomNav;
     HomeFragment homeFragment;
-    LikedFragment likedFragment;
-    GeofenceFragment geofenceFragment;
+    GeofenceClubFragment geofenceclubFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +35,7 @@ public class Club extends AppCompatActivity {
         clubbottomNav=findViewById(R.id.clubBottomNav);
         //Fragments
         homeFragment=new HomeFragment();
-        likedFragment=new LikedFragment();
-        geofenceFragment=new GeofenceFragment();
+        geofenceclubFragment=new GeofenceClubFragment();
 
         replaceFragement(homeFragment);
         clubbottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -54,11 +45,8 @@ public class Club extends AppCompatActivity {
                     case R.id.bottom_action_home:
                         replaceFragement(homeFragment);
                         return true;
-                    case R.id.bottom_action_liked:
-                        replaceFragement(likedFragment);
-                        return true;
                     case R.id.bottom_action_geofence:
-                        replaceFragement(geofenceFragment);
+                        replaceFragement(geofenceclubFragment);
                         return true;
                     default:
                         return false;
@@ -99,9 +87,10 @@ public class Club extends AppCompatActivity {
                 return true;
 
             case R.id.action_new_post:
-                Intent NewpostIntent = new Intent(Club.this,NewPostActivity.class);
-                startActivity(NewpostIntent);
+                Intent newpostIntent = new Intent(Club.this,NewPostActivity.class);
+                startActivity(newpostIntent);
                 return true;
+
             default:
                 return false;
         }

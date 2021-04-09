@@ -3,7 +3,7 @@ package com.example.vit_spotlight;
 
 import java.util.Date;
 
-public class EventPost {
+public class EventPost extends PostId{
 
     public String user_id, image_url, desc;
     public Date timestamp;

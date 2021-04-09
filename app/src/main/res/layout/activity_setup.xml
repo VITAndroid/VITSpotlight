@@ -5,6 +5,7 @@
     android:id="@+id/setupToolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/likeBtnGray"
     tools:context=".SetupActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -40,6 +41,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Name"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +59,9 @@
         android:layout_marginRight="16dp"
         android:ems="10"
         android:hint="Phone Number"
-        android:inputType="textPersonName"
+        android:inputType="phone"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,6 +88,7 @@
         android:layout_marginRight="16dp"
         android:text="emailid"
         android:textSize="18sp"
+        android:textColor="@color/white"
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -100,6 +106,7 @@
         android:layout_marginRight="16dp"
         android:text="RegAs"
         android:textSize="18sp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

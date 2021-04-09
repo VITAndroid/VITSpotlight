@@ -3,12 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LikedFragment">
+    tools:context=".GeofenceClubFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
+        android:id="@+id/geofence_club"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Liked Fragment" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>

@@ -127,6 +127,7 @@ public class SetupActivity extends AppCompatActivity {
         updatebtn.setOnClickListener(v -> {
             checkField(setupphone);
             checkField(setupname);
+
             if(valid) {
                 if (isChanged) {
                     final StorageReference Image_path = sRef.child("Profile_Images").child(user.getUid() + ".jpg");

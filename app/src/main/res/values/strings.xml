@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VIT-Spotlight</string>
+    <string name="app_name">VITSpotlight</string>
     <string name="light">f0eb</string>
     <string name="action_search_text">Search</string>
     <string name="action_setting_text">Account Settings</string>

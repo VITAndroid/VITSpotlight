@@ -1,7 +1,6 @@
 package com.example.vit_spotlight;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -11,13 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +21,6 @@ public class    MainActivity extends AppCompatActivity {
     Toolbar mainToolbar;
     BottomNavigationView mainbottomNav;
     HomeFragment homeFragment;
-    LikedFragment likedFragment;
     GeofenceFragment geofenceFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +36,6 @@ public class    MainActivity extends AppCompatActivity {
         mainbottomNav=findViewById(R.id.mainBottomNav);
         //Fragments
         homeFragment=new HomeFragment();
-        likedFragment=new LikedFragment();
         geofenceFragment=new GeofenceFragment();
 
         replaceFragement(homeFragment);
@@ -53,9 +45,6 @@ public class    MainActivity extends AppCompatActivity {
                 switch ((item.getItemId())){
                     case R.id.bottom_action_home:
                         replaceFragement(homeFragment);
-                        return true;
-                    case R.id.bottom_action_liked:
-                        replaceFragement(likedFragment);
                         return true;
                     case R.id.bottom_action_geofence:
                         replaceFragement(geofenceFragment);

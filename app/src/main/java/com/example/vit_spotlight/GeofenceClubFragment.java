@@ -6,7 +6,6 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,12 +26,11 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link GeofenceFragment#newInstance} factory method to
+ * Use the {@link GeofenceClubFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GeofenceFragment extends Fragment {
-
-    public WebView geofence;
+public class GeofenceClubFragment extends Fragment {
+    public WebView geofenceclub;
     private FusedLocationProviderClient mFusedLoacationClient;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -44,7 +42,7 @@ public class GeofenceFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public GeofenceFragment() {
+    public GeofenceClubFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +52,11 @@ public class GeofenceFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment GeofenceFragment.
+     * @return A new instance of fragment GeofenceClubFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GeofenceFragment newInstance(String param1, String param2) {
-        GeofenceFragment fragment = new GeofenceFragment();
+    public static GeofenceClubFragment newInstance(String param1, String param2) {
+        GeofenceClubFragment fragment = new GeofenceClubFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,13 +76,12 @@ public class GeofenceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_geofence, container, false);
-        geofence = view.findViewById(R.id.geofence);
-        WebSettings webSettings = geofence.getSettings();
+        View view=inflater.inflate(R.layout.fragment_geofence_club, container, false);
+        geofenceclub=view.findViewById(R.id.geofence_club);
+        WebSettings webSettings=geofenceclub.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        geofence.loadUrl("https://tinyurl.com/geofence200");
-        geofence.setWebViewClient(new WebViewClient());
+        geofenceclub.loadUrl("https://appfyu.eu-gb.mybluemix.net/world");
+        geofenceclub.setWebViewClient(new WebViewClient());
 
         // Inflate the layout for this fragment
         return view;

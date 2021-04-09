@@ -7,10 +7,6 @@
         android:icon="@drawable/baseline_home_black_24"
         android:title="Home" />
     <item
-        android:id="@+id/bottom_action_liked"
-        android:icon="@drawable/baseline_favorite_black_24"
-        android:title="Liked" />
-    <item
         android:id="@+id/bottom_action_geofence"
         android:icon="@drawable/baseline_person_pin_black_24"
         android:title="Geofence" />

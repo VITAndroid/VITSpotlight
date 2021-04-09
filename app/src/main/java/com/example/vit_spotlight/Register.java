@@ -120,14 +120,14 @@ public class Register extends AppCompatActivity {
                 Toast.makeText(Register.this,"Select Photo",Toast.LENGTH_SHORT).show();
                 return;
             }
-            /*if(isClubBox.isChecked()){
+            if(isClubBox.isChecked()){
                 String Vemail = email.getText().toString().trim();
                 String VemailPattern = "[a-zA-Z0-9.]+@vit.ac.in";
                 if(!(Vemail.matches(VemailPattern))){
                     email.setError("Invalid Club Email ID");
                     return;
                 }
-            }*/
+            }
             if(isStudentBox.isChecked()){
                 String Vemail = email.getText().toString().trim();
                 String VemailPattern = "[a-zA-Z0-9.]+@vitstudent.ac.in";

@@ -1,6 +1,7 @@
 package com.example.vit_spotlight;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -77,11 +80,28 @@ public class GeofenceClubFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_geofence_club, container, false);
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading Data...");
+        progressDialog.setCancelable(false);
         geofenceclub=view.findViewById(R.id.geofence_club);
-        WebSettings webSettings=geofenceclub.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+
+        //geofenceclub.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        //geofenceclub.getSettings().setBuiltInZoomControls(true);
+        //geofenceclub.setWebViewClient(new GeoWebViewClient());
+
+        geofenceclub.getSettings().setJavaScriptEnabled(true);
+        geofenceclub.getSettings().setGeolocationEnabled(true);
+        geofenceclub.setWebChromeClient(new GeoWebChromeClient(){
+            public void onProgressChanged(WebView view, int progress) {
+                if (progress < 100) {
+                    progressDialog.show();
+                }
+                if (progress == 100) {
+                    progressDialog.dismiss();
+                }
+            }
+        });
         geofenceclub.loadUrl("https://appfyu.eu-gb.mybluemix.net/world");
-        geofenceclub.setWebViewClient(new WebViewClient());
 
         // Inflate the layout for this fragment
         return view;
@@ -103,6 +123,24 @@ public class GeofenceClubFragment extends Fragment {
                 });
             }
 
+        }
+    }
+
+    public class GeoWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // When user clicks a hyperlink, load in the existing WebView
+            view.loadUrl(url);
+            return true;
+        }
+    }
+    public class GeoWebChromeClient extends WebChromeClient {
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin,
+                                                       GeolocationPermissions.Callback callback) {
+            // Always grant permission since the app itself requires location
+            // permission and the user has therefore already granted it
+            callback.invoke(origin, true, false);
         }
     }
 

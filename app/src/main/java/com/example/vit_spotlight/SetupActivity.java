@@ -146,7 +146,6 @@ public class SetupActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 storeFirestore(task, user);
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             } else {
                                 // Handle failures
                                 String error = task.getException().getMessage();
@@ -156,7 +155,6 @@ public class SetupActivity extends AppCompatActivity {
                     });
                 } else {
                     storeFirestore(null, user);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
             }
         });

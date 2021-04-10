@@ -1,12 +1,14 @@
 package com.example.vit_spotlight;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -34,6 +38,7 @@ public class GeofenceFragment extends Fragment {
 
     public WebView geofence;
     private FusedLocationProviderClient mFusedLoacationClient;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,16 +80,34 @@ public class GeofenceFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_geofence, container, false);
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading Data...");
+        progressDialog.setCancelable(false);
         geofence = view.findViewById(R.id.geofence);
-        WebSettings webSettings = geofence.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+
+        geofence.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        geofence.getSettings().setBuiltInZoomControls(false);
+        geofence.setWebViewClient(new GeoWebViewClient());
+
+        geofence.getSettings().setJavaScriptEnabled(true);
+        geofence.getSettings().setGeolocationEnabled(true);
+        geofence.setWebChromeClient(new GeoWebChromeClient(){
+            public void onProgressChanged(WebView view, int progress) {
+                if (progress < 100) {
+                    progressDialog.show();
+                }
+                if (progress == 100) {
+                    progressDialog.dismiss();
+                }
+            }
+        });
         geofence.loadUrl("https://tinyurl.com/geofence200");
-        geofence.setWebViewClient(new WebViewClient());
 
         // Inflate the layout for this fragment
         return view;
@@ -108,5 +131,24 @@ public class GeofenceFragment extends Fragment {
 
         }
     }
+
+    public class GeoWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // When user clicks a hyperlink, load in the existing WebView
+            view.loadUrl(url);
+            return true;
+        }
+    }
+    public class GeoWebChromeClient extends WebChromeClient {
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin,
+                                                       GeolocationPermissions.Callback callback) {
+            // Always grant permission since the app itself requires location
+            // permission and the user has therefore already granted it
+            callback.invoke(origin, true, false);
+        }
+    }
+
 
 }

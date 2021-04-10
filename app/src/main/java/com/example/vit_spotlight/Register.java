@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -73,6 +74,15 @@ public class Register extends AppCompatActivity {
         goToLogin = findViewById(R.id.gotoLogin);
         isClubBox = findViewById(R.id.isClub);
         isStudentBox=findViewById(R.id.isStudent);
+
+        final ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog.setMessage("Loading Data...");
+        progressDialog.setCancelable(false);
+
+        ProgressDialog progress = new ProgressDialog(this);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setMessage("Sending.. Please wait!");
+        progress.setCancelable(false);
 
         profilepic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +150,8 @@ public class Register extends AppCompatActivity {
                 password.setError("Password Must be >= 8 Characters");
                 return;
             }
-
+            progress.show();
+            int count=0;
             if(valid){
                 fAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(authResult -> {
                     FirebaseUser user =fAuth.getCurrentUser();
@@ -179,6 +190,32 @@ public class Register extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()){
                                             Toast.makeText(Register.this, "Account Created", Toast.LENGTH_LONG).show();
+
+                                            final AlertDialog.Builder verifyDialog = new AlertDialog.Builder(v.getContext());
+                                            verifyDialog.setTitle("Verify Your Email");
+                                            verifyDialog.setMessage("Click Verify to get your Account Verified.!");
+                                            verifyDialog.setCancelable(false);
+                                            verifyDialog.setPositiveButton("Verify", (dialog, which) -> {
+                                                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Toast.makeText(Register.this, "Reset Link Sent To Your Email. \n Please verify before login", Toast.LENGTH_LONG).show();
+                                                        fAuth.signOut();
+                                                        startActivity(new Intent(getApplicationContext(),Login.class));
+                                                        finish();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(Register.this, "Error ! Verified Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+
+                                            });
+
+                                            verifyDialog.create().show();
+
+
                                         }else{
                                             String error = task.getException().getMessage();
                                             Toast.makeText(Register.this, "FireStore Error : " + error, Toast.LENGTH_LONG).show();
@@ -192,30 +229,6 @@ public class Register extends AppCompatActivity {
                             }
                         }
                     });
-
-                    final AlertDialog.Builder verifyDialog = new AlertDialog.Builder(v.getContext());
-                    verifyDialog.setTitle("Verify Your Email");
-                    verifyDialog.setMessage("Click Verify to get your Account Verified.!");
-                    verifyDialog.setCancelable(false);
-                    verifyDialog.setPositiveButton("Verify", (dialog, which) -> {
-                        user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(Register.this, "Reset Link Sent To Your Email. \n Please verify before login", Toast.LENGTH_LONG).show();
-                                fAuth.signOut();
-                                startActivity(new Intent(getApplicationContext(),Login.class));
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Register.this, "Error ! Verified Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                    });
-
-                    verifyDialog.create().show();
 
                 }).addOnFailureListener(e -> {
                     Toast.makeText(Register.this,"failed to create Account " + e.getMessage(),Toast.LENGTH_LONG).show();
@@ -258,6 +271,7 @@ public class Register extends AppCompatActivity {
                 Exception error = result.getError();
             }
         }
-
     }
+
+
 }

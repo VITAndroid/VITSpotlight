@@ -235,6 +235,7 @@ public class Register extends AppCompatActivity {
                 });
             }
         });
+        progress.dismiss();
 
         goToLogin.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),Login.class)));
 

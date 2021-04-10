@@ -10,7 +10,7 @@ We are happy to announce our next product VITSpotlight android application. Our 
 </br></br>
 Technology Used: IDE - Android Studio(Java), Database - Firebase
 </br>
-APK File Link:&nbsp;[Click Here](https://drive.google.com/file/d/1JSzk8z6IpsLiZN7wCuNA1Imh5BwtJ7_w/view?usp=sharing "APK File")
+APK File Link:&nbsp;[Click Here](https://drive.google.com/file/d/1KLdVZWifRZCjSjHPoZ1m8r_KLxhBHJdN/view?usp=sharing "APK File")
 </br>App ScreenShort:&nbsp;[Click Here](https://drive.google.com/drive/folders/1HDKYIR0RbYRZoUF2BEPYLGC8PyUNHoXi?usp=sharing "Screeenshort Images")
 </br></br><b>[Note]: Only for Vit Vellore campus can access the content as of now we try to develop it for all.</b>
 

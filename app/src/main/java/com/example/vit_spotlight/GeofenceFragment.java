@@ -107,7 +107,7 @@ public class GeofenceFragment extends Fragment {
                 }
             }
         });
-        geofence.loadUrl("https://tinyurl.com/geofence200");
+        geofence.loadUrl("https://bit.ly/3s8ya5N");
 
         // Inflate the layout for this fragment
         return view;

@@ -30,8 +30,8 @@
 
     <TextView
         android:id="@+id/spotlight"
-        android:layout_width="215.97dp"
-        android:layout_height="72dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="28dp"
